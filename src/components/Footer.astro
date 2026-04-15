@@ -1,0 +1,39 @@
+---
+import { Icon } from "astro-icon/components";
+
+const socialLinks = [
+    { name: "simple-icons:x", href: "https://x.com", label: "X (Twitter)" },
+    {
+        name: "simple-icons:github",
+        href: "https://github.com",
+        label: "GitHub",
+    },
+];
+---
+
+<footer class="bg-orange-500 text-white mt-auto">
+    <div class="max-w-6xl mx-auto px-5 py-12 flex flex-col items-center gap-6">
+        <!-- ロゴ -->
+        <div class="font-roboto font-bold text-4xl">WCPC</div>
+        <p class="text-orange-100 text-sm">
+            Wakayama University Competitive Programming Circle
+        </p>
+
+        <!-- SNSリンク -->
+        <div class="flex gap-5">
+            {
+                socialLinks.map((link) => (
+                    <a
+                        href={link.href}
+                        aria-label={link.label}
+                        class="text-white hover:text-orange-200 transition-colors duration-200"
+                    >
+                        <Icon name={link.name} class="w-7 h-7" />
+                    </a>
+                ))
+            }
+        </div>
+
+        <p class="text-orange-100 text-xs mt-4">Copyright &copy; 2025 WCPC</p>
+    </div>
+</footer>
