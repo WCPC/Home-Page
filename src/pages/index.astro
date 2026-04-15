@@ -35,7 +35,7 @@ const posts = (await getCollection("activities")).sort(
         <section class="mb-16">
             <h2 class="font-roboto font-bold text-4xl mb-6">私たちについて</h2>
             <p class="text-base md:text-lg leading-relaxed text-gray-700">
-                私たちはなんっちゃらかんちゃらをなんとかすることでICPCの優勝を目指しています。
+                山と海と大自然に囲まれたこの地 <b>~和歌山~</b> で私たちはのびのびと競プロを強くなりたいのです。
             </p>
             <p class="text-base md:text-lg leading-relaxed text-gray-700">
                 あとAtCoderの副社長は和歌山大学出身です。
@@ -66,7 +66,7 @@ const posts = (await getCollection("activities")).sort(
                         {posts.map((post) => (
                             <li>
                                 <a
-                                    href={`/activities/${post.id.replace(".mdx", "")}`}
+                                    href={`/activities/${post.id.replace("index.mdx", "")}`}
                                     class="flex flex-col sm:flex-row sm:items-center gap-3 p-5 rounded-2xl bg-orange-50 hover:bg-orange-100 transition-colors duration-200 no-underline group"
                                 >
                                     <span class="text-sm text-gray-400 shrink-0 sm:w-28">
