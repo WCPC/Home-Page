@@ -1,0 +1,38 @@
+---
+const navLinks = [
+    { label: "私たちについて", href: "/#about" },
+    { label: "活動記事", href: "/activities" },
+    { label: "お問い合わせ", href: "/contact" },
+];
+---
+
+<header
+    class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100"
+>
+    <div
+        class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between flex-wrap gap-4"
+    >
+        <!-- ロゴ -->
+        <a href="/"
+            ><img
+                src="/images/wcpc-logo.svg"
+                alt="WCPC"
+                class="w-10 h-10 rouded-lg"
+            /></a
+        >
+
+        <!-- ナビゲーション -->
+        <nav class="flex items-center flex-wrap gap-6 text-base">
+            {
+                navLinks.map((link) => (
+                    <a
+                        href={link.href}
+                        class="text-gray-700 hover:text-orange-500 transition-colors duration-200 no-underline"
+                    >
+                        {link.label}
+                    </a>
+                ))
+            }
+        </nav>
+    </div>
+</header>

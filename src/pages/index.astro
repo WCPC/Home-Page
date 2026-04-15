@@ -1,101 +1,107 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-import { Icon } from 'astro-icon/components';
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { getCollection } from "astro:content";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const posts = (await getCollection("activities"))
+    .filter((post) => !post.data.draft)
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
-<!DOCTYPE html>
-<html lang="ja" class="m-0 p-0">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<Layout title="ホーム" description="和歌山大学競技プログラミングサークル WCPC">
+    <Header />
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Hero -->
+    <section class="w-full text-center py-16 px-5 border-b border-gray-100">
+        <h1 class="font-roboto font-bold text-6xl md:text-8xl mb-3">WCPC</h1>
+        <p
+            class="font-roboto font-bold text-xl md:text-2xl text-orange-500 mb-10"
+        >
+            和歌山大学 競技プログラミングサークル
+        </p>
+        <img
+            src="/images/wcpc-hero.webp"
+            alt="WCPC's Hero"
+            class="max-w-xl w-full mx-auto rounded-2xl object-cover shadow-sm"
+            loading="eager"
+        />
+    </section>
 
-    <!-- <link rel="stylesheet" href="index.css"> -->
-    <title>WCPC</title>
-</head>
-<body class="m-0 p-0 bg-white text-black font-['Noto_Sans',_sans-serif]">
-    <header class="bg-white/80 text-black font-['D-DIN-PRO',_sans-serif] font-normal sticky top-0 w-full z-[1] backdrop-blur-[10px] ">
-        <div class="flex flex-row justify-between items-center flex-wrap p-[20px] text-base md:text-[1.5rem] max-[850px]:flex-col max-[850px]:gap-4">
-            <div class="flex flex-row flex-wrap justify-center items-center gap-[10px]">
-                <div class="flex flex-row items-center cursor-pointer">
-                    <a href="/"><img class="w-[50px] h-[50px] rounded-[8px]" src="images/wcpc-logo.svg" alt="WCPC"></a>
-                    <div class="font-roboto border-r-[3px] border-[#dedede] p-[10px]">WCPC</div>
-                </div>
-                <div class="cursor-pointer">私たちについて</div>
-                <div class="cursor-pointer">コンテスト</div>
-                <div class="cursor-pointer">よくある質問</div>
-            </div>
-            <div class="flex flex-row flex-wrap justify-center items-center gap-[15px]">
-                <div class="cursor-pointer">お問い合わせ</div>
-                <a href="https://discord.com/" class="group text-white no-underline font-medium hover:text-[#ff6302] h-fit bg-[#ff6302] text-base md:text-[1.5rem] p-[10px] rounded-[10px] cursor-pointer items-center inline-flex justify-center flex-row gap-[10px] border-[3px] border-[#ff6302] w-fit h-[30px] min-w-[120px] text-center hover:bg-[#fcdecc]">
-                    <i class="fa-brands fa-discord text-inherit group-hover:text-[#ff6302]" ></i>
-                    <div> 新歓サーバーへ</div>
-                </a>
-            </div>
-        </div>
-    </header>
-    <main>
-        <div class="w-full text-center my-[50px] mx-0">
-            <h1 class="font-roboto font-bold text-[4rem]">Hello World!</h1>
-            <h2 class="font-roboto font-bold text-[2rem]"><span class="text-[#ff6302]">W</span>CPC</h2>
-            <h2 class="font-roboto font-bold text-[2rem]"><span class="text-[#ff6302]">W</span>akayama University Competitive Programming Circle</h2>
-            
-            <img class="w-full m-auto" src="images/wcpc-logo-photo_hu_40ab4ffdfc9b24e1.webp" alt="">
-            <a href="https://discord.com/" class="group text-white no-underline font-medium hover:text-[#ff6302] h-fit bg-[#ff6302] text-base md:text-[1.5rem] p-[10px] rounded-[10px] cursor-pointer items-center inline-flex justify-center flex-row gap-[10px] border-[3px] border-[#ff6302] w-fit h-[30px] min-w-[120px] text-center hover:bg-[#fcdecc]">
-                <i class="fa-brands fa-discord text-inherit group-hover:text-[#ff6302]" ></i>
-                <div> 新歓サーバーへ</div>
-            </a>
-        </div>
-        <section class="m-[15px] p-10 rounded-[10px] bg-[#fff8f3] min-h-[200px]">
-            <h2 class="font-roboto font-bold text-[3rem]">News</h2>
-            <div></div>
-            <a href="/" class=" group text-[#ff6302] no-underline font-medium hover:text-[#ff6302] h-fit bg-white text-base md:text-[1.5rem] p-[10px] rounded-[10px] cursor-pointer items-center inline-flex flex-row gap-[10px] h-[30px] w-fit min-w-[100px] border-[3px] border-[#ff6302] hover:bg-[#fcdecc]">
-                <div>お知らせ一覧ページへ</div>
-            </a>
-        </section>
-        <section class="m-[15px] p-10 rounded-[10px] bg-[#fff8f3] min-h-[200px]">
-            <h2 class="font-roboto font-bold text-[3rem]">About</h2>
-            <p class="font-['Noto_Sans',_sans-serif] text-base md:text-[1.7rem]">和歌山大学公認の競技プログラミングサークルです。2024年12月から活動しています。現在は10名のメンバーで構成されています。
-                AtCoder様が定期的に開催するプログラミングコンテストのほか、オンサイトコンテストへの参加など、活動は多岐にわたります。
+    <div id="about" class="my-5"></div>
+
+    <main class="flex-1 max-w-4xl mx-auto px-5 py-16 w-full">
+        <!-- About -->
+        <section class="mb-16">
+            <h2 class="font-roboto font-bold text-4xl mb-6">私たちについて</h2>
+            <p class="text-base md:text-lg leading-relaxed text-gray-700">
+                山と海と大自然に囲まれたこの地 <b>~和歌山~</b> で私たちはのびのびと競プロを強くなりたいのです。
             </p>
-            <a href="https://discord.com/" class="group text-[#ff6302] no-underline font-medium hover:text-[#ff6302] h-fit bg-white text-base md:text-[1.5rem] p-[10px] rounded-[10px] cursor-pointer items-center inline-flex flex-row gap-[10px] h-[30px] w-fit min-w-[100px] border-[3px] border-[#ff6302] hover:bg-[#fcdecc]">
-                <div>メンバー紹介ページへ</div>
-            </a>
-            <a href="https://discord.com/" class="group text-white no-underline font-medium hover:text-[#ff6302] h-fit bg-[#ff6302] text-base md:text-[1.5rem] p-[10px] rounded-[10px] cursor-pointer items-center inline-flex justify-center flex-row gap-[10px] border-[3px] border-[#ff6302] w-fit h-[30px] min-w-[120px] text-center hover:bg-[#fcdecc]">
-                <div>AtCoder様へ</div>
-            </a>
+            <p class="text-base md:text-lg leading-relaxed text-gray-700">
+                あとAtCoderの副社長は和歌山大学出身です。
+            </p>
         </section>
-        <section class="m-[15px] p-10 rounded-[10px] bg-[#fff8f3] min-h-[200px]">
-            <h2 class="font-roboto font-bold text-[3rem]">Contest</h2>
-            <a href="./" class="group text-[#ff6302] no-underline font-medium hover:text-[#ff6302] h-fit bg-white text-base md:text-[1.5rem] p-[10px] rounded-[10px] cursor-pointer items-center inline-flex flex-row gap-[10px] h-[30px] w-fit min-w-[100px] border-[3px] border-[#ff6302] hover:bg-[#fcdecc]">
-                <div>コンテスト結果一覧ページへ</div>
-            </a>
+
+        <!-- contact -->
+        <section class="mb-16">
+            <h2 class="font-roboto font-bold text-4xl mb-6">参加するには</h2>
+            <p class="text-base md:text-lg leading-relaxed text-gray-700">
+                右上の問い合わせフォームからお問い合わせください。
+            </p>
+            <p class="text-base md:text-lg leading-relaxed text-gray-700">
+                Discordの新歓サーバのURLや簡単な質問をメールでお送りいたします。
+            </p>
+        </section>
+
+        <!-- 活動記事 -->
+        <section>
+            <h2 class="font-roboto font-bold text-4xl mb-6">活動記事</h2>
+            {
+                posts.length === 0 ? (
+                    <p class="text-gray-400 py-10 text-center">
+                        まだ記事がありません。
+                    </p>
+                ) : (
+                    <ul class="space-y-4">
+                        {posts.map((post) => (
+                            <li>
+                                <a
+                                    href={`/activities/${post.id.replace("index.mdx", "")}`}
+                                    class="flex flex-col sm:flex-row sm:items-center gap-3 p-5 rounded-2xl bg-orange-50 hover:bg-orange-100 transition-colors duration-200 no-underline group"
+                                >
+                                    <span class="text-sm text-gray-400 shrink-0 sm:w-28">
+                                        {post.data.date.toLocaleDateString(
+                                            "ja-JP",
+                                        )}
+                                    </span>
+                                    <div class="flex flex-wrap gap-1.5 shrink-0">
+                                        {post.data.tags.map((tag) => (
+                                            <span class="text-xs bg-orange-200 text-orange-700 px-2 py-0.5 rounded-full">
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="font-roboto font-bold text-gray-900 group-hover:text-orange-500 transition-colors duration-200">
+                                            {post.data.title}
+                                        </p>
+                                        {post.data.description && (
+                                            <p class="text-sm text-gray-500 mt-0.5">
+                                                {post.data.description}
+                                            </p>
+                                        )}
+                                    </div>
+                                    <span class="text-orange-300 group-hover:text-orange-500 transition-colors duration-200 hidden sm:block shrink-0">
+                                        →
+                                    </span>
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                )
+            }
         </section>
     </main>
-    <footer class="bg-[#ff6302] text-white">
-        <div class="h-fit flex flex-col items-center p-[15px]">
-            <div class="font-['D-DIN-PRO',_sans-serif] text-xl md:text-[1.8rem] p-[30px] h-fit">
-                <h2 class="font-roboto font-bold text-[3rem]">WCPC</h2>
-            </div>
-            <div class="mx-auto my-0 h-fit flex flex-row justify-between gap-[20px] flex-wrap">
-                <a href="https://X.com"><i class="fa-brands fa-twitter text-white text-[2.5rem] p-[10px]"></i></a>
-                <a href="https://github.com"><i class="fa-brands fa-github text-white text-[2.5rem] p-[10px]"></i></a>
-                <a href="https://zenn.dev" class="justify-center items-center"><Icon name="simple-icons:zenn"  class="p-auto text-white text-[3.5rem] p-[10px]"/></a>
-                <a href="https://instagram.com"><i class="fa-brands fa-discord text-white text-[2.5rem] p-[10px]"></i></a>
-            </div>
-            <div class="w-full h-[50px]"></div>
-            <p class="font-['Noto_Sans',_sans-serif] text-sm md:text-[1.1rem]">Copyright © 2025 WCPC</p>
-        </div>
-    </footer>
-</body>
-</html>
+
+    <Footer />
+</Layout>
