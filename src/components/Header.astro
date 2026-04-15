@@ -2,7 +2,6 @@
 const navLinks = [
     { label: "私たちについて", href: "/#about" },
     { label: "活動記事", href: "/activities" },
-    { label: "コンテスト", href: "/#contest" },
     { label: "お問い合わせ", href: "/contact" },
 ];
 ---
@@ -14,7 +13,13 @@ const navLinks = [
         class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between flex-wrap gap-4"
     >
         <!-- ロゴ -->
-        <img src="/images/wcpc-logo.svg" alt="WCPC" class="w-10 h-10 rouded-lg" />
+        <a href="/"
+            ><img
+                src="/images/wcpc-logo.svg"
+                alt="WCPC"
+                class="w-10 h-10 rouded-lg"
+            /></a
+        >
 
         <!-- ナビゲーション -->
         <nav class="flex items-center flex-wrap gap-6 text-base">
