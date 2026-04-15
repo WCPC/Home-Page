@@ -5,6 +5,7 @@ const activities = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.date(),
+    draft: z.boolean().default(false),
     author: z.string().optional(),
     tags: z.array(z.string()).default([]),
     description: z.string().optional(),

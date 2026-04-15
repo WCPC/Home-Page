@@ -4,9 +4,9 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { getCollection } from "astro:content";
 
-const posts = (await getCollection("activities")).sort(
-    (a, b) => b.data.date.getTime() - a.data.date.getTime(),
-);
+const posts = (await getCollection("activities"))
+    .filter((post) => !post.data.draft)
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
 <Layout title="ホーム" description="和歌山大学競技プログラミングサークル WCPC">
