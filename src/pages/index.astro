@@ -6,7 +6,8 @@ import { getCollection } from "astro:content";
 
 const posts = (await getCollection("activities"))
     .filter((post) => !post.data.draft)
-    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+    .slice(0, 5);
 ---
 
 <Layout title="ホーム" description="和歌山大学競技プログラミングサークル WCPC">
@@ -55,7 +56,7 @@ const posts = (await getCollection("activities"))
 
         <!-- 活動記事 -->
         <section>
-            <h2 class="font-roboto font-bold text-4xl mb-6">活動記事</h2>
+            <h2 class="font-roboto font-bold text-4xl mb-6">最新の活動記事</h2>
             {
                 posts.length === 0 ? (
                     <p class="text-gray-400 py-10 text-center">
