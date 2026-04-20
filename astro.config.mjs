@@ -6,6 +6,7 @@ import icon from "astro-icon"; // ← ★1. インポートを追加
 import mdx from "@astrojs/mdx";
 
 export default defineConfig({
+  site: "https://wcpc.pages.dev",
   integrations: [
     tailwind(), // ← ★2. ここに追加
     icon(),
