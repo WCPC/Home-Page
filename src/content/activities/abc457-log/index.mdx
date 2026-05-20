@@ -1,0 +1,265 @@
+---
+title: "ABC457参加記"
+date: 2025-05-16
+draft: false
+author: "ShoboiNamae"
+tags: ["AtCoder"]
+description: "AtCoderに参加した所感など"
+---
+
+[前回の参加記(ABC456回)](https://wcpc.pages.dev/activities/abc456-log/)
+
+## はじめに
+
+こんにちは。<br/>
+初めまして！**ShoboiNamae**と申します。今回、入緑を記念して記事を書かせていただけることになりました！（やったね！）<br/>
+新入部員として、当たり障りのないことを書いていければと思います。
+
+## 結果サマリ
+
+- [ABC457](https://atcoder.jp/contests/abc457)
+- WCPC参加人数: **6人**
+- 各問題の最速解答者(ペナルティ無し):
+
+| 問題 | 参加者名 | タイム | 言語 |
+| :--- | :--- | :--- | :--- |
+| A | nsubaru | 0:25 | Java |
+| B | nsubaru | 1:53 | Java |
+| C | ShoboiNamae | 9:12 | C++ |
+| D | ShoboiNamae | 39:25 | C++ |
+| E | nsubaru | 97:45 | Java |
+| F | - | - | - |
+| G | - | - | - |
+
+## 今週の出題
+
+### ABC457-A
+
+<details>
+	<summary>問題文を表示</summary>
+	<div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+
+        **問題文** <br/>
+        長さ N の数列 A = (A_1, A_2, ... , A_N) が与えられます。<br/>
+        その後に 1 以上 N 以下の整数 X が与えられます。<br/>
+        A_x の値を出力してください。
+
+        **制約** <br/>
+        - 1 &le; X &le; N &le; 100 <br/>
+        - 1 &le; A_i &le; 100 <br/>
+        - 入力される値はすべて整数
+
+        **入力** <br/>
+        N<br/>
+        A_1 A_2 ... A_N<br/>
+        x
+
+        **出力** <br/>
+        A_Xの値を出力せよ。
+	</div>
+</details>
+
+A問題は1次元の配列に入力して、添え字が0から始まることに注意して出力することで解けました。
+
+配列を使わないこともできます！（時間の無駄）
+
+[配列を使わないコードはこちら（C++）](https://atcoder.jp/contests/abc457/submissions/75766871)
+
+### ABC457-B
+
+<details>
+	<summary>問題文を表示</summary>
+	<div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+
+        **問題文**<br/>
+        N 個の数列 A_1, A_2,..., A_N が与えられます。<br/>
+        数列 A_i の長さは L_i であり A_i = ( A_\{i, 1\}, A_\{i, 2\},..., A_\{i, L_i\} )です。<br/>
+        その後、整数 X, Y が与えられます。 A_\{X, Y\} の値を出力してください。<br/>
+
+        **制約**<br/>
+        1 &le; N &le; 2 × 10^5<br/>
+        1 &le; L_i<br/>
+        L_i の総和は 2 × 10^5 以下<br/>
+        1 &le; A_\{i, j\} &le; 1000<br/>
+        1 &le; X &le; N<br/>
+        1 &le; Y &le; L_X<br/>
+        入力される値はすべて整数<br/>
+
+        **入力**<br/>
+        N<br/>
+        L_1 A_\{1, 1\} A_\{1, 2\} ... A_\{1, L_1\}<br/>
+        L_2 A_\{2, 1\} A_\{2, 2\} ... A_\{2, L_2\}<br/>
+        ⋮<br/>
+        L_N A_\{N, 1\} A_\{N, 2\} ... A_\{N, L_N\}<br/>
+        X Y
+
+        **出力**<br/>
+        A_\{X, Y\} の値を出力せよ。
+
+	</div>
+</details>
+
+Aと同様に配列の操作が本質の問題ですが、こちらは2次元配列を使う問題でした。<br/>
+数列 A_i の長さがそれぞれ違うので入力が複雑になるところが難しかったと思います。
+
+解説を読んでみると、固定長配列を作ろうとした人がWAになるような問題設定にされていたようです。よく考えられてるなあ。
+
+### ABC457-C
+
+<details>
+	<summary>問題文を表示</summary>
+	<div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+
+		**問題文** <br/>
+        整数 N, K と N 個の整数列 A_1, A_2,..., A_N 、 長さ N の整数列 C = (C_1, C_2,..., C_N) が与えられます。整数列 A_i の長さは L_i であり A_i = (A_\{i, 1\}, A_\{i, 2\},..., A_\{i, L_i\}) です。また、 1 &le; K &le; <svg viewBox="0 0 10 28" fill="black" font-family="serif" height="58px" style="display:inline;"><text x="0" y="20" font-size="16px">Σ</text><g font-size="5px"><text x="3" y="7" font-size="5px">N</text><text x="1.5" y="26">i=1</text></g></svg>C_iL_i が保証されます。<br/>
+        A と C から以下の手順で整数列 B = (B_1, B_2,..., B_\{<svg viewBox="0 0 10 28" fill="black" font-family="serif" height="40px" style="display:inline;"><text x="0" y="20" font-size="16px">Σ</text><g font-size="5px"><text x="3" y="7" font-size="5px">N</text><text x="1.5" y="26">i=1</text></g></svg>C_iL_i\}) を構成します。<br/>
+        * B を長さ0の整数列とする。
+        * i = 1, 2,..., N の順に以下の操作を行う:
+                * B の末尾に A_i を連結させる操作を C_i 回行う。
+        
+        B_K の値を求めてください。
+
+        **制約** <br/>
+        - 1 &le; N
+        - 1 &le; L_i
+        - <svg viewBox="0 0 10 28" fill="black" font-family="serif" height="58px" style="display:inline;"><text x="0" y="20" font-size="16px">Σ</text><g font-size="5px"><text x="3" y="7" font-size="5px">N</text><text x="1.5" y="26">i=1</text></g></svg>L_i &le; 2 * 10^5
+        - 1 &le; A_\{i, j\} &le; 10^9 (1 &le; j &le; L_i)
+        - 1 &le; C_i &le; 10^9
+        - 1 &le; K &le; <svg viewBox="0 0 10 28" fill="black" font-family="serif" height="58px" style="display:inline;"><text x="0" y="20" font-size="16px">Σ</text><g font-size="5px"><text x="3" y="7" font-size="5px">N</text><text x="1.5" y="26">i=1</text></g></svg>C_iL_i
+        - 入力される値はすべて整数
+
+        **入力** <br/>
+        N K<br/>
+        L_1 A_\{1, 1\} A_\{1, 2\} ...  A_\{1, L_i\}<br/>
+        L_2 A_\{2, 1\} A_\{2, 2\} ...  A_\{2, L_2\}<br/>
+        ⋮<br/>
+        L_N A_\{N, 1\} A_\{N, 2\} ...  A_\{N, L_N\}<br/>
+        C_1 C_2 ... C_N
+
+        **出力** <br/>
+        答えを出力せよ。
+
+	</div>
+</details>
+
+
+<details>
+	<summary>解説文を表示（長くなったのでたたみました）</summary>
+この問題は入力や数列のある要素の値を求める点でB問題に似ていますがだいぶ難易度が違います。<br/>
+愚直に数列Bを作ると間に合わないorメモリ超過するので数列Bを作らずに解く工夫が必要でした。
+
+まず、 「Bの末尾に A_i を連結させる操作を C_i 回行う」という点に着目します。すると、数列Bの中に 「A_i が繰り返されている部分」が、 i = 1 から i = N までのN箇所あることが分かります。<br/>
+このとき、 数列Bの「 A_i が繰り返されている部分」を、数列Bの第i群と定義します。数列Bの第K項が属する群と、その群における位置を求めます。<br/>
+問題文から、第i群の長さは C_i * L_i です。よって、第1群から第j群の最後の要素までの項数は、 (C_1 * L_1 + C_2 * L_2 + ... + C_j * L_j) = <svg viewBox="0 0 10 28" fill="black" font-family="serif" height="58px" style="display:inline;"><text x="0" y="20" font-size="16px">Σ</text><g font-size="5px"><text x="4" y="7" font-size="5px">j</text><text x="1.5" y="26">i=1</text></g></svg>(C_i * L_i) 項です。<br/>
+このことから、数列Bの第K項が属する群を第m群とすると、<svg viewBox="0 0 10 28" fill="black" font-family="serif" height="58px" style="display:inline;"><text x="0" y="20" font-size="16px">Σ</text><g font-size="5px"><text x="0" y="7" font-size="5px">m-1</text><text x="1.5" y="26">i=1</text></g></svg>(C_i * L_i) &lt; K &le; <svg viewBox="0 0 10 28" fill="black" font-family="serif" height="58px" style="display:inline;"><text x="0" y="20" font-size="16px">Σ</text><g font-size="5px"><text x="2.5" y="7" font-size="5px">m</text><text x="1.5" y="26">i=1</text></g></svg>(C_i * L_i) が成り立ちます。for文などで、 K &le; <svg viewBox="0 0 10 28" fill="black" font-family="serif" height="58px" style="display:inline;"><text x="0" y="20" font-size="16px">Σ</text><g font-size="5px"><text x="2.5" y="7" font-size="5px">m</text><text x="1.5" y="26">i=1</text></g></svg>(C_i * L_i) が満たされる間 m を1から増やしていくことで m を求めることができます。<br/>
+m が分かってしまえば群の中の第何項目なのかは、 K - <svg viewBox="0 0 10 28" fill="black" font-family="serif" height="58px" style="display:inline;"><text x="0" y="20" font-size="16px">Σ</text><g font-size="5px"><text x="0" y="7" font-size="5px">m-1</text><text x="1.5" y="26">i=1</text></g></svg>(C_i * L_i) で簡単に求まります。<br/>
+肝心の出力すべき要素についても、第m群で長さL_mの数列A_mが繰り返されていることを考えると、K - <svg viewBox="0 0 10 28" fill="black" font-family="serif" height="58px" style="display:inline;"><text x="0" y="20" font-size="16px">Σ</text><g font-size="5px"><text x="0" y="7" font-size="5px">m-1</text><text x="1.5" y="26">i=1</text></g></svg>(C_i * L_i) をL_mで割ったあまりを考えればよさそうです。<br/>
+ただし、大抵のプログラミング言語の配列は 0-indexed （添え字が0始まり）なので、添え字を指定するときには注意が必要です。
+</details>
+
+と、なぜか無駄に解説を書いてしまったのですが、本番中はこんなに考えてません。<br/>
+私は読解力がとても低いので問題文を読むのに一番苦労しました。あと、最後の添え字もなんとなくでやってしまった。通ったからいいけれども。
+
+あと、全然関係ないんですが、0-indexedって競プロ界隈限定の呼び方なんですかね? 検索しても競プロのサイトばかりヒットするのはなぜだろう...
+
+まとめると、この問題は難しかったということです。
+
+### ABC457-D
+
+<details>
+	<summary>問題文を表示</summary>
+	<div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+
+		**問題文** <br/>
+        長さ N の数列 A = (A_1, A_2,..., A_N) と整数 K が与えられます。<br/>
+        あなたは次の操作を0回以上K回以下行うことができます。
+
+        * 1 &le; i &le; N を満たす整数 i を1つ選び、 A_i に i を加える。
+
+        操作後の数列に対する <svg viewBox="0 0 30 28" fill="black" height="40px" font-family="serif" style="display:inline;"><text x="3" y="17" font-size="12px">min</text><g font-size="8px"><text x="0" y="26">1&le;i&le;N</text></g></svg> A_i としてありうる最大値を求めてください。
+
+        **制約** <br/>
+        - 1 &le; N &le; 2 * 10^5
+        - 1 &le; A_i &le; 10^18
+        - 1 &le; K &le; 10^18
+        - 入力される値はすべて整数
+
+        **入力** <br/>
+        N K<br/>
+        A_1 A_2 ... A_N
+
+        **出力** <br/>
+        答えを出力せよ。
+	</div>
+</details>
+
+またまた数列が出てきました。今日は数列デーなのか?<br/>
+私は先週のABCでD問題が解けなかったので何としても解きたいところでした。<br/>
+まだまだ経験が浅く、コンテスト中は「DはDPのD!」とか言ってDPを考えていましたが、途中で天啓があり、にぶたんだと確信したので爆速でコードを書き、しっかりオーバーフローでWAになって踊りました。<br/>
+その後、考えるのを放棄し、 `__int128_t` 型を使うという脳筋プレーでACできました。なので、今回一番面倒だったのは `__int128_t` の出力関数を作ることでした。<br/>
+といっても、10で割ってあまり出力して10で割って...を繰り返すだけの関数ですが。
+
+Pythonはいいよなあ。デフォルトが多倍長整数で。
+
+後から聞いた話ですが、最小値の最大化とか、最大値の最小化とか、そういう類の問題は大体にぶたんらしいです。もしにぶたんできなかったら、その後にDPとか貪欲を考えるのがいいそうです。<br/>
+やっぱり O(log N) は魅力的だー。
+
+### ABC457-E
+
+<details>
+	<summary>問題文を表示</summary>
+	<div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+
+		
+        **問題文** <br/>
+        N 個のマスが左右一列に並んでいます。左から i 番目 (1 &le; i &le; N) のマスをマス i と呼びます。
+
+        M 枚の布があり、布 i (1 &le; i &le; M) を敷くとマス L_i からマス R_i までを覆うことができます。
+
+        Q 個のクエリに答えてください。 q 番目 (1 &le; q &le; Q) のクエリでは整数 S_q, T_q が与えられるので、以下の問題に答えてください。
+
+        - M 枚の布の中からちょうど2枚の布を選んで敷くことで、以下の条件を満たすことができるか判定せよ。
+                - マス S_q からマス T_q までは1枚以上の布で覆われており、それ以外のマスは布で覆われていない。
+
+        **制約** <br/>
+        - 1 &le; N &le; 2 * 10^5
+        - 2 &le; M &le; 2 * 10^5
+        - 1 &le; L_i &le; R_i &le; N
+        - 1 &le; Q &lt; 2 * 10^5
+        - 1 &le; S_q &le; T_q &le; N
+        - 入力される値はすべて整数
+
+        **入力**<br/>
+        N M<br/>
+        L_1 R_1<br/>
+        L_2 R_2<br/>
+        ⋮<br/>
+        L_M R_M<br/>
+        Q<br/>
+        S_1 T_1<br/>
+        S_2 T_2<br/>
+        ⋮<br/>
+        S_Q T_Q
+
+        **出力**<br/>
+        各クエリに対する答えを改行区切りで出力せよ。<br/>
+        各クエリでは、条件を満たすように2枚の布を選ぶことができる場合は `Yes` を、できない場合は `No` を出力せよ。
+
+	</div>
+</details>
+
+私はコンテスト中に解けませんでした。ランキングを見てみると、 **nsubaru** 先輩が解いてる!! さすがすぎる!!<br/>
+一応私がコンテスト中に考えたことを書いておきます。
+
+実行時間が2.5秒と、少し長かったので重めの計算量を通すと推測し、前処理ですべての覆える範囲を探索するコードを提出しましたがもちろんTLEでした。さすがに O(M^2) は通らない。<br/>
+全探索じゃないっぽいなー、また二分探索? 今日二分探索デーか? というところまでは考えましたが、どうすればいいのか分からなかったのでなすすべなく終わりました。
+
+### ABC457-F以降
+
+（これ以降の問題は割愛します）
+
+## 最後に
+
+E問題を解けなかったことが悔しいですが、なんとか入緑できてよかったです。
+
+至らない点もあったかと思いますが、最後まで読んでいただきありがとうございました。
