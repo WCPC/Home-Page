@@ -3,7 +3,7 @@ name: 🐞 バグ報告
 about: 発見したバグについて報告するためのテンプレートです。
 title: "Bug: "
 labels: bug
-assignees: ''
+assignees: ""
 ---
 
 <!------（必須）------>

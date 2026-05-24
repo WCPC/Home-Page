@@ -3,7 +3,7 @@ name: 🚀 新機能提案
 about: プロジェクトに追加したい新機能や改善アイデアを提案するテンプレートです。
 title: "Feature: "
 labels: enhancement
-assignees: ''
+assignees: ""
 ---
 
 <!------（必須）------>
