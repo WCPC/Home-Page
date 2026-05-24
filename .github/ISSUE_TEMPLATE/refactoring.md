@@ -3,7 +3,7 @@ name: ♻️ リファクタリング
 about: 外部仕様に影響しないコード改善・リファクタリングを提案するためのテンプレートです。
 title: "Refactor: "
 labels: refactor
-assignees: ''
+assignees: ""
 ---
 
 <!------（必須）------>

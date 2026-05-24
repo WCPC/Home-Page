@@ -3,7 +3,7 @@ name: 🎨 スタイル変更
 about: コードスタイル・フォーマット・セミコロン追加など、機能に影響しない変更を提案するテンプレートです。
 title: "Style: "
 labels: style
-assignees: ''
+assignees: ""
 ---
 
 <!------（必須）------>

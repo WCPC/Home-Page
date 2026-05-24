@@ -3,7 +3,7 @@ name: 📚 ドキュメント変更
 about: ドキュメントに関する変更・追加・修正を提案するためのテンプレートです。
 title: "Docs: "
 labels: documentation
-assignees: ''
+assignees: ""
 ---
 
 <!------（必須）------>

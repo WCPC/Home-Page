@@ -3,7 +3,7 @@ name: 🧪 テスト関連
 about: テストの追加・修正・改善を提案するためのテンプレートです。
 title: "Test: "
 labels: test
-assignees: ''
+assignees: ""
 ---
 
 <!------（必須）------>
