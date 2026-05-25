@@ -5,11 +5,11 @@ import Footer from "../../components/Footer.astro";
 import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
-    const posts = await getCollection("activities");
-    return posts.map((post) => ({
-        params: { slug: post.id.replace("index.mdx", "") },
-        props: { post },
-    }));
+  const posts = await getCollection("activities");
+  return posts.map((post) => ({
+    params: { slug: post.id.replace("index.mdx", "") },
+    props: { post },
+  }));
 }
 
 const { post } = Astro.props;
@@ -17,81 +17,79 @@ const { Content } = await render(post);
 ---
 
 <Layout title={post.data.title} description={post.data.description}>
-    <Header />
+  <Header />
 
-    <main class="flex-1 max-w-3xl mx-auto px-5 py-12 w-full">
-        <!-- パンくず -->
-        <nav class="text-sm text-gray-400 mb-10">
-            <a href="/" class="hover:text-orange-500 no-underline">ホーム</a>
-            <span class="mx-2">/</span>
-            <a href="/activities" class="hover:text-orange-500 no-underline"
-                >活動記事</a
-            >
-            <span class="mx-2">/</span>
-            <span class="text-gray-600">{post.data.title}</span>
-        </nav>
+  <main class="flex-1 max-w-3xl mx-auto px-5 py-12 w-full">
+    <!-- パンくず -->
+    <nav class="text-sm text-gray-400 mb-10">
+      <a href="/" class="hover:text-orange-500 no-underline">ホーム</a>
+      <span class="mx-2">/</span>
+      <a href="/activities" class="hover:text-orange-500 no-underline"
+        >活動記事</a
+      >
+      <span class="mx-2">/</span>
+      <span class="text-gray-600">{post.data.title}</span>
+    </nav>
 
-        <!-- 記事ヘッダー -->
-        <header class="mb-12 pb-8 border-b border-gray-100">
-            <!-- タグ -->
-            <div class="flex flex-wrap gap-2 mb-4">
-                {
-                    post.data.tags.map((tag) => (
-                        <span class="text-xs font-medium bg-orange-100 text-orange-600 px-3 py-1 rounded-full">
-                            {tag}
-                        </span>
-                    ))
-                }
-            </div>
+    <!-- 記事ヘッダー -->
+    <header class="mb-12 pb-8 border-b border-gray-100">
+      <!-- タグ -->
+      <div class="flex flex-wrap gap-2 mb-4">
+        {
+          post.data.tags.map((tag) => (
+            <span class="text-xs font-medium bg-orange-100 text-orange-600 px-3 py-1 rounded-full">
+              {tag}
+            </span>
+          ))
+        }
+      </div>
 
-            <!-- タイトル -->
-            <h1
-                class="font-roboto font-bold text-3xl my-10 md:text-4xl text-gray-900 leading-tight mb-6"
-            >
-                {post.data.title}
-            </h1>
+      <!-- タイトル -->
+      <h1
+        class="font-roboto font-bold text-3xl my-10 md:text-4xl text-gray-900 leading-tight mb-6"
+      >
+        {post.data.title}
+      </h1>
 
-            <!-- メタ情報 -->
-            <div
-                class="flex flex-wrap items-center gap-4 text-sm text-gray-400"
-            >
-                <span>
-                    {
-                        post.data.date.toLocaleDateString("ja-JP", {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                        })
-                    }
-                </span>
-                {
-                    post.data.author && (
-                        <span class="flex items-center gap-1.5">
-                            <span class="w-5 h-5 rounded-full bg-orange-200 inline-flex items-center justify-center text-orange-600 text-xs font-bold">
-                                {post.data.author[0].toUpperCase()}
-                            </span>
-                            {post.data.author}
-                        </span>
-                    )
-                }
-            </div>
-        </header>
+      <!-- メタ情報 -->
+      <div class="flex flex-wrap items-center gap-4 text-sm text-gray-400">
+        <span>
+          {
+            post.data.date.toLocaleDateString("ja-JP", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })
+          }
+        </span>
+        {
+          post.data.author && (
+            <span class="flex items-center gap-1.5">
+              <span class="w-5 h-5 rounded-full bg-orange-200 inline-flex items-center justify-center text-orange-600 text-xs font-bold">
+                {post.data.author[0].toUpperCase()}
+              </span>
+              {post.data.author}
+            </span>
+          )
+        }
+      </div>
+    </header>
 
-        <!-- 本文 -->
-        <article class="prose prose-orange max-w-none">
-            <Content />
-        </article>
+    <!-- 本文 -->
+    <article class="prose prose-orange max-w-none">
+      <Content />
+    </article>
 
-        <!-- 戻るボタン -->
-        <div class="mt-16 pt-8 border-t border-gray-100">
-            <a
-                href="/activities"
-                class="inline-flex items-center gap-2 text-orange-500 border-2 border-orange-500 hover:bg-orange-100 px-4 py-2 rounded-xl font-medium transition-all duration-200 no-underline text-sm"
-            >
-                ← 活動記事一覧に戻る
-            </a>
-        </div>
-    </main>
+    <!-- 戻るボタン -->
+    <div class="mt-16 pt-8 border-t border-gray-100">
+      <a
+        href="/activities"
+        class="inline-flex items-center gap-2 text-orange-500 border-2 border-orange-500 hover:bg-orange-100 px-4 py-2 rounded-xl font-medium transition-all duration-200 no-underline text-sm"
+      >
+        ← 活動記事一覧に戻る
+      </a>
+    </div>
+  </main>
 
-    <Footer />
+  <Footer />
 </Layout>

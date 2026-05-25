@@ -5,111 +5,106 @@ import Footer from "../components/Footer.astro";
 import { getCollection } from "astro:content";
 
 const posts = (await getCollection("activities"))
-    .filter((post) => !post.data.draft)
-    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-    .slice(0, 5);
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 5);
 ---
 
 <Layout title="ホーム" description="和歌山大学競技プログラミングサークル WCPC">
-    <!-- 背景画像（極薄） -->
-    <div
-        class="fixed inset-0 -z-10 w-screen h-screen pointer-events-none"
-        aria-hidden="true"
-    >
-        <img
-            src="/images/wcpc-hero.webp"
-            alt=""
-            class="w-full h-full object-cover opacity-[0.10]"
-        />
-    </div>
+  <!-- 背景画像（極薄） -->
+  <div
+    class="fixed inset-0 -z-10 w-screen h-screen pointer-events-none"
+    aria-hidden="true"
+  >
+    <img
+      src="/images/wcpc-hero.webp"
+      alt=""
+      class="w-full h-full object-cover opacity-[0.10]"
+    />
+  </div>
 
-    <Header />
+  <Header />
 
-    <!-- Hero -->
-    <section class="w-full text-center pt-16 px-5">
-        <h1 class="font-roboto font-bold text-6xl md:text-8xl mb-3">WCPC</h1>
-        <p
-            class="font-roboto font-bold text-xl md:text-2xl text-orange-500"
-        >
-            和歌山大学 競技プログラミングサークル
-        </p>
+  <!-- Hero -->
+  <section class="w-full text-center pt-16 px-5">
+    <h1 class="font-roboto font-bold text-6xl md:text-8xl mb-3">WCPC</h1>
+    <p class="font-roboto font-bold text-xl md:text-2xl text-orange-500">
+      和歌山大学 競技プログラミングサークル
+    </p>
+  </section>
+
+  <div id="about" class="my-5"></div>
+
+  <main class="flex-1 max-w-4xl mx-auto px-5 py-16 w-full">
+    <!-- About -->
+    <section class="mb-16">
+      <h2 class="font-roboto font-bold text-4xl mb-6">私たちについて</h2>
+      <p class="text-base md:text-lg leading-relaxed text-gray-700">
+        和歌山大学公認の競技プログラミングサークルです。
+      </p>
+
+      <p class="text-base md:text-lg leading-relaxed text-gray-700">
+        2024年12月から活動しています。現在は8名のメンバーで構成されています。
+        AtCoder様が定期的に開催するプログラミングコンテストのほか、オンサイトコンテストへの参加など、活動は多岐にわたります。
+      </p>
     </section>
 
-    <div id="about" class="my-5"></div>
+    <!-- contact -->
+    <section class="mb-16">
+      <h2 class="font-roboto font-bold text-4xl mb-6">参加するには</h2>
+      <p class="text-base md:text-lg leading-relaxed text-gray-700">
+        右上の問い合わせフォームからお問い合わせください。
+      </p>
+      <p class="text-base md:text-lg leading-relaxed text-gray-700">
+        Discordの新歓サーバのURLや簡単な質問をメールでお送りいたします。
+      </p>
+    </section>
 
-    <main class="flex-1 max-w-4xl mx-auto px-5 py-16 w-full">
-        <!-- About -->
-        <section class="mb-16">
-            <h2 class="font-roboto font-bold text-4xl mb-6">私たちについて</h2>
-            <p class="text-base md:text-lg leading-relaxed text-gray-700">
-                和歌山大学公認の競技プログラミングサークルです。
-            </p>
-
-            <p class="text-base md:text-lg leading-relaxed text-gray-700">
-                2024年12月から活動しています。現在は8名のメンバーで構成されています。 AtCoder様が定期的に開催するプログラミングコンテストのほか、オンサイトコンテストへの参加など、活動は多岐にわたります。
-            </p>
-        </section>
-
-        <!-- contact -->
-        <section class="mb-16">
-            <h2 class="font-roboto font-bold text-4xl mb-6">参加するには</h2>
-            <p class="text-base md:text-lg leading-relaxed text-gray-700">
-                右上の問い合わせフォームからお問い合わせください。
-            </p>
-            <p class="text-base md:text-lg leading-relaxed text-gray-700">
-                Discordの新歓サーバのURLや簡単な質問をメールでお送りいたします。
-            </p>
-        </section>
-
-        <!-- 活動記事 -->
-        <section>
-            <h2 class="font-roboto font-bold text-4xl mb-6">最新の活動記事</h2>
-            {
-                posts.length === 0 ? (
-                    <p class="text-gray-400 py-10 text-center">
-                        まだ記事がありません。
+    <!-- 活動記事 -->
+    <section>
+      <h2 class="font-roboto font-bold text-4xl mb-6">最新の活動記事</h2>
+      {
+        posts.length === 0 ? (
+          <p class="text-gray-400 py-10 text-center">まだ記事がありません。</p>
+        ) : (
+          <ul class="space-y-4">
+            {posts.map((post) => (
+              <li>
+                <a
+                  href={`/activities/${post.id.replace("index.mdx", "")}`}
+                  class="flex items-center gap-3 p-5 rounded-2xl bg-orange-50 hover:bg-orange-100 transition-colors duration-200 no-underline group"
+                >
+                  <div class="flex-1 min-w-0">
+                    <div class="flex flex-wrap items-center gap-2 mb-2">
+                      <span class="text-sm text-gray-400 shrink-0">
+                        {post.data.date.toLocaleDateString("ja-JP")}
+                      </span>
+                      {post.data.tags.map((tag) => (
+                        <span class="text-xs bg-orange-200 text-orange-700 px-2 py-0.5 rounded-full">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <p class="font-roboto font-bold text-lg text-gray-900 group-hover:text-orange-500 transition-colors duration-200">
+                      {post.data.title}
                     </p>
-                ) : (
-                    <ul class="space-y-4">
-                        {posts.map((post) => (
-                            <li>
-                                <a
-                                    href={`/activities/${post.id.replace("index.mdx", "")}`}
-                                    class="flex items-center gap-3 p-5 rounded-2xl bg-orange-50 hover:bg-orange-100 transition-colors duration-200 no-underline group"
-                                >
-                                    <div class="flex-1 min-w-0">
-                                        <div class="flex flex-wrap items-center gap-2 mb-2">
-                                            <span class="text-sm text-gray-400 shrink-0">
-                                                {post.data.date.toLocaleDateString(
-                                                    "ja-JP",
-                                                )}
-                                            </span>
-                                            {post.data.tags.map((tag) => (
-                                                <span class="text-xs bg-orange-200 text-orange-700 px-2 py-0.5 rounded-full">
-                                                    {tag}
-                                                </span>
-                                            ))}
-                                        </div>
-                                        <p class="font-roboto font-bold text-lg text-gray-900 group-hover:text-orange-500 transition-colors duration-200">
-                                            {post.data.title}
-                                        </p>
-                                        {post.data.description && (
-                                            <p class="text-sm text-gray-500 mt-1">
-                                                {post.data.description}
-                                            </p>
-                                        )}
-                                    </div>
-                                    <span class="text-orange-300 group-hover:text-orange-500 transition-colors duration-200 shrink-0">
-                                        →
-                                    </span>
-                                </a>
-                            </li>
-                        ))}
-                    </ul>
-                )
-            }
-        </section>
-    </main>
+                    {post.data.description && (
+                      <p class="text-sm text-gray-500 mt-1">
+                        {post.data.description}
+                      </p>
+                    )}
+                  </div>
+                  <span class="text-orange-300 group-hover:text-orange-500 transition-colors duration-200 shrink-0">
+                    →
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </section>
+  </main>
 
-    <Footer />
+  <Footer />
 </Layout>
