@@ -1,0 +1,24 @@
+# すべてテキストファイルとして扱い、常に LF で保存
+* text=auto eol=lf
+
+# Windows特有のファイルはCRLFを使用
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# ソースコードや設定ファイルは確実に LF を強制
+*.svelte text eol=lf
+*.ts text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+
+# 画像やバイナリファイルは改行コード変換の対象外にする
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.svg text eol=lf
