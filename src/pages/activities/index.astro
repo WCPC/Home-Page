@@ -5,54 +5,50 @@ import Footer from "../../components/Footer.astro";
 import { getCollection } from "astro:content";
 
 const posts = (await getCollection("activities"))
-    .filter((post) => !post.data.draft)
-    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
 <Layout title="活動記事" description="WCPCの活動記事一覧">
-    <Header />
+  <Header />
 
-    <main class="flex-1 max-w-4xl mx-auto px-5 py-12 w-full">
-        <h1 class="font-roboto font-bold text-4xl mb-10">活動記事</h1>
+  <main class="flex-1 max-w-4xl mx-auto px-5 py-12 w-full">
+    <h1 class="font-roboto font-bold text-4xl mb-10">活動記事</h1>
 
-        {
-            posts.length === 0 ? (
-                <p class="text-gray-500">まだ記事がありません。</p>
-            ) : (
-                <ul class="space-y-6">
-                    {posts.map((post) => (
-                        <li>
-                            <a
-                                href={`/activities/${post.id.replace("index.mdx", "")}`}
-                                class="block p-6 rounded-2xl bg-orange-50 hover:bg-orange-100 transition-colors duration-200 no-underline"
-                            >
-                                <div class="flex flex-wrap items-center gap-3 mb-2">
-                                    <span class="text-sm text-gray-400">
-                                        {post.data.date.toLocaleDateString(
-                                            "ja-JP",
-                                        )}
-                                    </span>
-                                    {post.data.tags.map((tag) => (
-                                        <span class="text-xs bg-orange-200 text-orange-700 px-2 py-0.5 rounded-full">
-                                            {tag}
-                                        </span>
-                                    ))}
-                                </div>
-                                <h2 class="font-roboto font-bold text-xl text-gray-900 mb-1">
-                                    {post.data.title}
-                                </h2>
-                                {post.data.description && (
-                                    <p class="text-sm text-gray-600">
-                                        {post.data.description}
-                                    </p>
-                                )}
-                            </a>
-                        </li>
-                    ))}
-                </ul>
-            )
-        }
-    </main>
+    {
+      posts.length === 0 ? (
+        <p class="text-gray-500">まだ記事がありません。</p>
+      ) : (
+        <ul class="space-y-6">
+          {posts.map((post) => (
+            <li>
+              <a
+                href={`/activities/${post.id.replace("index.mdx", "")}`}
+                class="block p-6 rounded-2xl bg-orange-50 hover:bg-orange-100 transition-colors duration-200 no-underline"
+              >
+                <div class="flex flex-wrap items-center gap-3 mb-2">
+                  <span class="text-sm text-gray-400">
+                    {post.data.date.toLocaleDateString("ja-JP")}
+                  </span>
+                  {post.data.tags.map((tag) => (
+                    <span class="text-xs bg-orange-200 text-orange-700 px-2 py-0.5 rounded-full">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <h2 class="font-roboto font-bold text-xl text-gray-900 mb-1">
+                  {post.data.title}
+                </h2>
+                {post.data.description && (
+                  <p class="text-sm text-gray-600">{post.data.description}</p>
+                )}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </main>
 
-    <Footer />
+  <Footer />
 </Layout>
