@@ -7,7 +7,14 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "format": "prettier --write ."
+    "make": "bun scripts/make.ts",
+    "format": "prettier --write .",
+    "lint:articles": "bun scripts/wcpc-lint.ts",
+    "lint:articles:fix": "bun scripts/wcpc-lint.ts --fix",
+    "lint:articles:strict": "bun scripts/wcpc-lint.ts --strict",
+    "lint:articles:all": "bun scripts/wcpc-lint.ts src/content/activities",
+    "lint:articles:fix:all": "bun scripts/wcpc-lint.ts --fix src/content/activities",
+    "lint:articles:strict:all": "bun scripts/wcpc-lint.ts --strict src/content/activities"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.0.0",
@@ -21,7 +28,15 @@
     "tailwindcss": "^3.4.19"
   },
   "devDependencies": {
+    "@types/mdast": "^4.0.4",
+    "@types/unist": "^3.0.3",
+    "picocolors": "^1.1.1",
     "prettier": "3.9.4",
-    "prettier-plugin-astro": "^0.14.1"
+    "prettier-plugin-astro": "^0.14.1",
+    "remark-frontmatter": "^5.0.0",
+    "remark-mdx": "^3.1.1",
+    "remark-parse": "^11.0.0",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.1.0"
   }
 }
