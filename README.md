@@ -141,6 +141,8 @@ bun run make abc472-log --images
 
 `bun run make --help`で使い方を確認できます。既存directoryは上書きせず、不正なdirectory指定は拒否します。
 
+注意点として、`make` コマンドで作成された記事は `draft = true` となっているので、Webページでのプレビューに表示されません。記事の確認をする際は、`draft = false` に変更してください。
+
 ### Frontmatter
 
 生成された記事には、日付入りのFrontmatter skeletonが入ります。初期値は`draft: true`なので、意図せず公開されません。

@@ -56,9 +56,192 @@ tags: []
 description: "記事の概要"
 ---
 
+[前回の参加記()](https://wcpc.pages.dev/activities/)
+
 ## はじめに
 
-## 本文
+
+
+## 結果サマリ
+
+- [コンテスト名](https://atcoder.jp/contests/)
+
+- WCPC参加人数: **人**
+
+- 各問題の最速解答者(ペナルティ無し):
+
+| 問題 | 参加者名    | タイム | 言語 |
+| :--- | :---------- | :----- | :--- |
+| A    | -           | -      | -    |
+| B    | -           | -      | -    |
+| C    | -           | -      | -    |
+| D    | -           | -      | -    |
+| E    | -           | -      | -    |
+| F    | -           | -      | -    |
+| G    | -           | -      | -    |
+
+## 今週の出題
+
+### A問題
+
+<details>
+
+<summary>問題文を表示</summary>
+
+<div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+
+**問題文**<br />
+
+**制約**<br />
+- 
+
+**入力**<br />
+入力は以下の形式で標準入力から与えられる。<br />
+
+**出力**<br />
+答えを $1$ 行で出力せよ。<br />
+
+</div>
+
+</details>
+
+### B問題
+
+<details>
+
+<summary>問題文を表示</summary>
+
+<div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+
+**問題文**<br />
+
+**制約**<br />
+- 
+
+**入力**<br />
+入力は以下の形式で標準入力から与えられる。<br />
+
+**出力**<br />
+答えを $1$ 行で出力せよ。<br />
+
+</div>
+
+</details>
+
+### C問題
+
+<details>
+
+<summary>問題文を表示</summary>
+
+<div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+
+**問題文**<br />
+
+**制約**<br />
+- 
+
+**入力**<br />
+入力は以下の形式で標準入力から与えられる。<br />
+
+**出力**<br />
+答えを $1$ 行で出力せよ。<br />
+
+</div>
+
+</details>
+
+### D問題
+
+<details>
+
+<summary>問題文を表示</summary>
+
+<div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+
+**問題文**<br />
+
+**制約**<br />
+- 
+
+**入力**<br />
+入力は以下の形式で標準入力から与えられる。<br />
+
+**出力**<br />
+答えを $1$ 行で出力せよ。<br />
+
+</div>
+
+</details>
+
+### E問題
+
+<details>
+
+<summary>問題文を表示</summary>
+
+<div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+
+**問題文**<br />
+
+**制約**<br />
+- 
+
+**入力**<br />
+入力は以下の形式で標準入力から与えられる。<br />
+
+**出力**<br />
+答えを $1$ 行で出力せよ。<br />
+
+</div>
+
+</details>
+
+### F問題
+
+<details>
+
+<summary>問題文を表示</summary>
+
+<div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+
+**問題文**<br />
+
+**制約**<br />
+- 
+
+**入力**<br />
+入力は以下の形式で標準入力から与えられる。<br />
+
+**出力**<br />
+答えを $1$ 行で出力せよ。<br />
+
+</div>
+
+</details>
+
+### G問題
+
+<details>
+
+<summary>問題文を表示</summary>
+
+<div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+
+**問題文**<br />
+
+**制約**<br />
+- 
+
+**入力**<br />
+入力は以下の形式で標準入力から与えられる。<br />
+
+**出力**<br />
+答えを $1$ 行で出力せよ。<br />
+
+</div>
+
+</details>
 
 ## 最後に
 `;
