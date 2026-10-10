@@ -56,7 +56,7 @@ tags: []
 description: "記事の概要"
 ---
 
-[前回の参加記()](https://wcpc.pages.dev/activities/)
+[前回の参加記()](/activities/)
 
 ## はじめに
 
