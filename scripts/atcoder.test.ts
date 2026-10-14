@@ -120,3 +120,16 @@ describe("AtCoder penalty calculation", () => {
   });
 });
 
+describe("AtCoder statement rendering", () => {
+  test("入力出力のvar数式と行区切りを保ち、コードフェンスを使わない", () => {
+    const html = `<span class="lang-ja"><section><h3>問題文</h3><p>説明 <var>N</var></p></section><section><h3>制約</h3><p><var>N</var> \le 10</p></section><section><h3>入力</h3><pre><var>N</var> <var>M</var>
+<var>A_1</var> <var>A_2</var></pre></section><section><h3>出力</h3><pre><var>A_1</var>
+B</pre></section></span><span class="lang-en">English</span>`;
+    const statement = extractJapaneseProblemSections(html);
+
+    expect(statement).toContain("$N$ $M$<br />\n$A_1$ $A_2$<br />");
+    expect(statement).toContain("$A_1$<br />\nB<br />");
+    expect(statement).not.toContain("```text");
+    expect(statement).toContain("**制約**");
+  });
+});

@@ -249,8 +249,16 @@ function htmlToMarkdown(html: string): string {
     .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
     .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "")
     .replace(/<pre\b[^>]*>([\s\S]*?)<\/pre>/gi, (_m, body: string) => {
-      const code = decodeHtml(stripTags(body)).trim();
-      return hold(`\n\n\`\`\`text\n${code}\n\`\`\`\n\n`);
+      const lines = body
+        .replace(/<var\b[^>]*>([\s\S]*?)<\/var>/gi, (_varMatch, math: string) =>
+          protectMathFromVar(math),
+        )
+        .replace(/<br\s*\/?>/gi, "\n")
+        .split(/\r?\n/)
+        .map((line) => decodeHtml(stripTags(line)).trim());
+      while (lines[0] === "") lines.shift();
+      while (lines.at(-1) === "") lines.pop();
+      return hold(`\n\n${lines.map((line) => `${line}<br />`).join("\n")}\n\n`);
     })
     .replace(/<code\b[^>]*>([\s\S]*?)<\/code>/gi, (_m, body: string) => {
       const code = decodeHtml(stripTags(body));
@@ -422,4 +430,3 @@ export async function fetchContestAutoData(
   const statements = await fetchStatements(contest.id, problems);
   return { contest, problems, participantCount, fastestByProblem, statements };
 }
-
