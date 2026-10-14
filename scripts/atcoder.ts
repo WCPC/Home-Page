@@ -181,10 +181,10 @@ export function selectFastestByProblem(
       const current = fastest.get(problemId);
       if (
         !current ||
-        candidate.scoreTimeSeconds < current.scoreTimeSeconds ||
-        (candidate.scoreTimeSeconds === current.scoreTimeSeconds &&
+        candidate.elapsedSeconds < current.elapsedSeconds ||
+        (candidate.elapsedSeconds === current.elapsedSeconds &&
           candidate.acceptedAt < current.acceptedAt) ||
-        (candidate.scoreTimeSeconds === current.scoreTimeSeconds &&
+        (candidate.elapsedSeconds === current.elapsedSeconds &&
           candidate.acceptedAt === current.acceptedAt &&
           candidate.displayName.localeCompare(current.displayName) < 0)
       ) {
@@ -199,6 +199,15 @@ export function selectFastestByProblem(
 export function formatContestTime(seconds: number): string {
   const minutes = Math.floor(seconds / 60);
   return `${minutes}:${String(seconds % 60).padStart(2, "0")}`;
+}
+
+export function formatProblemResultTime(
+  result: Pick<ProblemResult, "elapsedSeconds" | "penaltyCount">,
+): string {
+  const time = formatContestTime(result.elapsedSeconds);
+  return result.penaltyCount > 0
+    ? `${time} (+${result.penaltyCount * 5})`
+    : time;
 }
 
 function decodeHtml(value: string): string {

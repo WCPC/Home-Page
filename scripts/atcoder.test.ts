@@ -1,5 +1,12 @@
 import { describe, expect, test } from "bun:test";
-import { calculateUserProblemResults, type AtCoderSubmission, type ContestProblem } from "./atcoder";
+import {
+  calculateUserProblemResults,
+  extractJapaneseProblemSections,
+  formatProblemResultTime,
+  selectFastestByProblem,
+  type AtCoderSubmission,
+  type ContestProblem,
+} from "./atcoder";
 
 const start = 1_000_000;
 const end = start + 100 * 60;
@@ -9,7 +16,12 @@ const problems: ContestProblem[] = ["A", "B", "C", "D"].map((index) => ({
   problem_index: index,
 }));
 
-function sub(id: number, minute: number, problem: string, result: string): AtCoderSubmission {
+function sub(
+  id: number,
+  minute: number,
+  problem: string,
+  result: string,
+): AtCoderSubmission {
   return {
     id,
     epoch_second: start + minute * 60,
@@ -70,5 +82,41 @@ describe("AtCoder penalty calculation", () => {
 
     // A:0 + B:1 + D:0 + C:2 = 3 penalties => 30 + 15 = 45 min
     expect(results.get("abc999_c")?.scoreTimeSeconds).toBe(45 * 60);
+    expect(results.get("abc999_c")?.penaltyCount).toBe(3);
+  });
+
+  test("AC前のWAだけを累積し、表示には実AC時刻と確定ペナルティを使う", () => {
+    const results = calculateUserProblemResults(
+      { atcoderId: "twil3" },
+      [sub(1, 3, "A", "AC"), sub(2, 6, "B", "WA"), sub(3, 8, "B", "AC")],
+      problems,
+      start,
+      end,
+    );
+
+    expect(formatProblemResultTime(results.get("abc999_a")!)).toBe("3:00");
+    expect(formatProblemResultTime(results.get("abc999_b")!)).toBe("8:00 (+5)");
+    expect(results.get("abc999_b")?.elapsedSeconds).toBe(8 * 60);
+  });
+
+  test("最速者はペナルティ込み時間でなく実AC時刻で決める", () => {
+    const slowerWithoutPenalty = [
+      { ...sub(1, 8, "A", "WA"), user_id: "early" },
+      { ...sub(2, 9, "A", "AC"), user_id: "early" },
+    ];
+    const fasterWithPenalty = [{ ...sub(3, 10, "A", "AC"), user_id: "late" }];
+    const fastest = selectFastestByProblem(
+      [{ atcoderId: "early" }, { atcoderId: "late" }],
+      new Map([
+        ["early", slowerWithoutPenalty],
+        ["late", fasterWithPenalty],
+      ]),
+      problems,
+      start,
+      end,
+    );
+
+    expect(fastest.get("abc999_a")?.userId).toBe("early");
   });
 });
+

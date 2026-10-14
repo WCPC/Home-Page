@@ -2,7 +2,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { basename, join } from "node:path";
 import {
   fetchContestAutoData,
-  formatContestTime,
+  formatProblemResultTime,
   type ContestAutoData,
   type WcpcMember,
 } from "./atcoder";
@@ -111,7 +111,7 @@ function renderAutoArticle(data: ContestAutoData): string {
     .map((problem) => {
       const result = data.fastestByProblem.get(problem.problem_id);
       if (!result) return `| ${problem.problem_index} | - | - | - |`;
-      return `| ${problem.problem_index} | ${result.displayName} | ${formatContestTime(result.scoreTimeSeconds)} | ${result.language} |`;
+      return `| ${problem.problem_index} | ${result.displayName} | ${formatProblemResultTime(result)} | ${result.language} |`;
     })
     .join("\n");
 
@@ -153,7 +153,7 @@ description: "AtCoderに参加した所感など"
 
 - [${data.contest.id.toUpperCase()}](https://atcoder.jp/contests/${data.contest.id})
 - WCPC参加人数: **${data.participantCount}人**
-- 各問題の最速解答者（ペナルティ込み）:
+- 各問題の最速解答者（実AC時刻）:
 
 | 問題 | 参加者名 | タイム | 言語 |
 | :--- | :------- | :----- | :--- |
