@@ -47,18 +47,20 @@ if (existsSync(articleDirectory)) {
   process.exit(1);
 }
 
-const dateParts = new Intl.DateTimeFormat("en", {
-  timeZone: "Asia/Tokyo",
-  year: "numeric",
-  month: "2-digit",
-  day: "2-digit",
-})
-  .formatToParts(new Date())
-  .reduce<Record<string, string>>((parts, part) => {
-    if (part.type !== "literal") parts[part.type] = part.value;
-    return parts;
-  }, {});
-const date = `${dateParts.year}-${dateParts.month}-${dateParts.day}`;
+function formatJstDate(date: Date): string {
+  const parts = new Intl.DateTimeFormat("en", {
+    timeZone: "Asia/Tokyo",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  })
+    .formatToParts(date)
+    .reduce<Record<string, string>>((result, part) => {
+      if (part.type !== "literal") result[part.type] = part.value;
+      return result;
+    }, {});
+  return `${parts.year}-${parts.month}-${parts.day}`;
+}
 
 function loadMembers(): WcpcMember[] {
   const path = join(import.meta.dir, "wcpc-members.json");
@@ -102,6 +104,9 @@ function blankProblemSection(index: string): string {
 }
 
 function renderAutoArticle(data: ContestAutoData): string {
+  const contestDate = formatJstDate(
+    new Date(data.contest.start_epoch_second * 1000),
+  );
   const rows = data.problems
     .map((problem) => {
       const result = data.fastestByProblem.get(problem.problem_id);
@@ -131,7 +136,7 @@ ${statement}
 
   return `---
 title: "${data.contest.id.toUpperCase()}参加記"
-date: ${date}
+date: ${contestDate}
 draft: true
 author: "著者名"
 tags: ["AtCoder"]
@@ -166,7 +171,7 @@ function renderBlankArticle(): string {
   const sections = ["A", "B", "C", "D", "E", "F", "G"].map(blankProblemSection).join("\n\n");
   return `---
 title: "記事タイトル"
-date: ${date}
+date: ${formatJstDate(new Date())}
 draft: true
 author: "著者名"
 tags: []
