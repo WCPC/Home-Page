@@ -118,7 +118,10 @@ function renderAutoArticle(data: ContestAutoData): string {
   const statements = data.problems
     .map((problem) => {
       const statement = data.statements.get(problem.problem_id) ?? "問題文の取得に失敗しました。";
+      const problemUrl = `https://atcoder.jp/contests/${data.contest.id}/tasks/${problem.problem_id}`;
       return `### ${data.contest.id.toUpperCase()}-${problem.problem_index}
+
+[問題ページ](${problemUrl})
 
 <details>
 
