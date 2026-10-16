@@ -62,6 +62,10 @@ function formatJstDate(date: Date): string {
   return `${parts.year}-${parts.month}-${parts.day}`;
 }
 
+function collapseBlankLines(value: string): string {
+  return value.replace(/\r\n?/g, "\n").replace(/\n(?:[ \t]*\n){2,}/g, "\n\n");
+}
+
 function loadMembers(): WcpcMember[] {
   const path = join(import.meta.dir, "wcpc-members.json");
   if (!existsSync(path)) {
@@ -218,6 +222,8 @@ if (contestId) {
 } else {
   template = renderBlankArticle();
 }
+
+template = collapseBlankLines(template);
 
 mkdirSync(articleDirectory);
 mkdirSync(join(articleDirectory, "images"));
