@@ -85,7 +85,7 @@ describe("AtCoder penalty calculation", () => {
     expect(results.get("abc999_c")?.penaltyCount).toBe(3);
   });
 
-  test("AC前のWAだけを累積し、表示には実AC時刻と確定ペナルティを使う", () => {
+  test("結果サマリの表示は実AC時刻だけにしてWA数を出さない", () => {
     const results = calculateUserProblemResults(
       { atcoderId: "twil3" },
       [sub(1, 3, "A", "AC"), sub(2, 6, "B", "WA"), sub(3, 8, "B", "AC")],
@@ -95,7 +95,8 @@ describe("AtCoder penalty calculation", () => {
     );
 
     expect(formatProblemResultTime(results.get("abc999_a")!)).toBe("3:00");
-    expect(formatProblemResultTime(results.get("abc999_b")!)).toBe("8:00 (+5)");
+    expect(formatProblemResultTime(results.get("abc999_b")!)).toBe("8:00");
+    expect(formatProblemResultTime(results.get("abc999_b")!)).not.toContain("+");
     expect(results.get("abc999_b")?.elapsedSeconds).toBe(8 * 60);
   });
 
@@ -131,5 +132,23 @@ B</pre></section></span><span class="lang-en">English</span>`;
     expect(statement).toContain("$A_1$<br />\nB<br />");
     expect(statement).not.toContain("```text");
     expect(statement).toContain("**制約**");
+  });
+
+  test("ネストされた箇条書きの深さを保持する", () => {
+    const html = `<span class="lang-ja"><section><h3>問題文</h3><ul><li>親<ul><li>子</li></ul></li><li>次</li></ul></section><section><h3>制約</h3><p>なし</p></section><section><h3>入力</h3><pre>A</pre></section><section><h3>出力</h3><pre>B</pre></section></span><span class="lang-en">English</span>`;
+    const statement = extractJapaneseProblemSections(html);
+
+    expect(statement).toContain("- 親\n  - 子\n- 次");
+  });
+
+  test("問題文中のdetailsをアコーディオンのまま保持する", () => {
+    const html = `<span class="lang-ja"><section><h3>問題文</h3><p>説明</p><details><summary>部分文字列とは</summary><p><var>S</var> の<strong>部分文字列</strong>とは、<var>S</var> の先頭から 0 文字以上削除して得られる文字列です。</p><p>例えば、<code>ab</code> は <code>abc</code> の部分文字列です。</p></details></section><section><h3>制約</h3><p>なし</p></section><section><h3>入力</h3><pre>A</pre></section><section><h3>出力</h3><pre>B</pre></section></span><span class="lang-en">English</span>`;
+    const statement = extractJapaneseProblemSections(html);
+
+    expect(statement).toContain("<details>");
+    expect(statement).toContain("<summary>部分文字列とは</summary>");
+    expect(statement).toContain("$S$ の**部分文字列**とは");
+    expect(statement).toContain("`ab` は `abc` の部分文字列です。");
+    expect(statement).toContain("</details>");
   });
 });
