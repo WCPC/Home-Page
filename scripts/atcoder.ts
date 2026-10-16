@@ -202,12 +202,9 @@ export function formatContestTime(seconds: number): string {
 }
 
 export function formatProblemResultTime(
-  result: Pick<ProblemResult, "elapsedSeconds" | "penaltyCount">,
+  result: Pick<ProblemResult, "elapsedSeconds">,
 ): string {
-  const time = formatContestTime(result.elapsedSeconds);
-  return result.penaltyCount > 0
-    ? `${time} (+${result.penaltyCount * 5})`
-    : time;
+  return formatContestTime(result.elapsedSeconds);
 }
 
 function decodeHtml(value: string): string {
@@ -241,6 +238,30 @@ function protectMathFromVar(body: string): string {
   return `$${math}$`;
 }
 
+function convertListTags(html: string): string {
+  const listStack: Array<"ul" | "ol"> = [];
+
+  return html.replace(/<\/?(?:ul|ol|li)\b[^>]*>/gi, (tag) => {
+    const match = tag.match(/^<\/?\s*(ul|ol|li)\b/i);
+    if (!match) return tag;
+
+    const name = match[1].toLowerCase() as "ul" | "ol" | "li";
+    const closing = /^<\//.test(tag);
+
+    if (name === "ul" || name === "ol") {
+      if (closing) listStack.pop();
+      else listStack.push(name);
+      return "\n";
+    }
+
+    if (closing) return "";
+
+    const depth = Math.max(listStack.length - 1, 0);
+    const marker = listStack.at(-1) === "ol" ? "1. " : "- ";
+    return `\n${"  ".repeat(depth)}${marker}`;
+  });
+}
+
 function htmlToMarkdown(html: string): string {
   const placeholders: string[] = [];
   const hold = (value: string) => `@@WCPC_${placeholders.push(value) - 1}@@`;
@@ -248,6 +269,19 @@ function htmlToMarkdown(html: string): string {
   let text = html
     .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
     .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "")
+    .replace(/<details\b[^>]*>([\s\S]*?)<\/details>/gi, (_m, body: string) => {
+      const summaryMatch = body.match(/<summary\b[^>]*>([\s\S]*?)<\/summary>/i);
+      const summary = summaryMatch
+        ? htmlToMarkdown(summaryMatch[1]).replace(/\s*\n\s*/g, " ").trim()
+        : "詳細";
+      const detailsBody = summaryMatch ? body.replace(summaryMatch[0], "") : body;
+      const detailsContent = htmlToMarkdown(detailsBody);
+      return hold(
+        `\n\n<details>\n\n<summary>${summary}</summary>\n\n${detailsContent}\n\n</details>\n\n`,
+      );
+    });
+
+  text = convertListTags(text)
     .replace(/<pre\b[^>]*>([\s\S]*?)<\/pre>/gi, (_m, body: string) => {
       const lines = body
         .replace(/<var\b[^>]*>([\s\S]*?)<\/var>/gi, (_varMatch, math: string) =>
@@ -268,8 +302,6 @@ function htmlToMarkdown(html: string): string {
       hold(protectMathFromVar(body)),
     )
     .replace(/<br\s*\/?>/gi, "\n")
-    .replace(/<li\b[^>]*>([\s\S]*?)<\/li>/gi, "\n- $1")
-    .replace(/<\/?(?:ul|ol)\b[^>]*>/gi, "\n")
     .replace(/<p\b[^>]*>/gi, "")
     .replace(/<\/p>/gi, "\n\n")
     .replace(/<strong\b[^>]*>([\s\S]*?)<\/strong>/gi, "**$1**")
@@ -281,6 +313,7 @@ function htmlToMarkdown(html: string): string {
     .replace(/\\\[([\s\S]*?)\\\]/g, (_m, math: string) => `\n$$\n${math.trim()}\n$$\n`)
     .replace(/\\\(([\s\S]*?)\\\)/g, (_m, math: string) => `$${math.trim()}$`)
     .replace(/[ \t]+\n/g, "\n")
+    .replace(/\n[ \t]*\n(?=[ \t]*(?:- |1\. ))/g, "\n")
     .replace(/\n{3,}/g, "\n\n")
     .trim();
 
