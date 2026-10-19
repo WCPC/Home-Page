@@ -1,0 +1,370 @@
+---
+title: "ABC479参加記"
+date: 2026-10-11
+draft: false
+author: "Caffeineholic"
+tags: ["AtCoder"]
+description: "AtCoderに参加した所感など"
+---
+
+[前回の参加記()](/activities/)
+
+## はじめに
+
+## 結果サマリ
+
+- [ABC479](https://atcoder.jp/contests/abc479)
+- WCPC参加人数: **6人**
+- 各問題の最速解答者（実AC時刻）:
+
+| 問題 | 参加者名 | タイム | 言語 |
+| :--- | :------- | :----- | :--- |
+| A | nsubaru | 0:39 | Java24 (OpenJDK 24.0.2) |
+| B | nsubaru | 2:00 | Java24 (OpenJDK 24.0.2) |
+| C | nsubaru | 6:53 | Java24 (OpenJDK 24.0.2) |
+| D | nsubaru | 15:35 | Java24 (OpenJDK 24.0.2) |
+| E | nsubaru | 39:07 | Java24 (OpenJDK 24.0.2) |
+| F | - | - | - |
+| G | - | - | - |
+
+## 今週の出題
+
+### ABC479-A
+
+[問題ページ](https://atcoder.jp/contests/abc479/tasks/abc479_a)
+
+<details>
+
+<summary>問題文を表示</summary>
+
+<div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+
+**問題文**
+
+長さ $N$ の整数列 $A=(A_1,A_2,\dots,A_N)$ が与えられます。
+
+$A$ の奇数番目の項の総和を求めてください。
+
+より厳密には、 $1 \le i \le N$ を満たす全ての奇数 $i$ にわたる $A_i$ の総和を求めてください。
+
+**制約**
+
+- 入力は全て整数
+- $1 \le N \le 100$
+- $1 \le A_i \le 100$
+
+**入力**
+
+入力は以下の形式で標準入力から与えられる。
+
+$N$<br />
+$A_1$ $A_2$ $\dots$ $A_N$<br />
+
+**出力**
+
+答えを出力せよ。
+
+</div>
+
+</details>
+
+### ABC479-B
+
+[問題ページ](https://atcoder.jp/contests/abc479/tasks/abc479_b)
+
+<details>
+
+<summary>問題文を表示</summary>
+
+<div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+
+**問題文**
+
+高橋君は、連続する $N$ 日間の天気を、各日について「晴れ」か「雨」かで記録しました。
+
+高橋君の記録は長さ $N$ の文字列 $S$ として以下の形式で与えられます。
+
+- $S$ の $i$ ( $1 \le i \le N$ ) 文字目は、記録開始から $i$ 日目の天気を表します。
+
+  - $S$ の $i$ 文字目が `S` であるとき、その日の記録は「晴れ」でした。
+  - $S$ の $i$ 文字目が `R` であるとき、その日の記録は「雨」でした。
+
+高橋君が「雨」を連続して記録した日数の最大値を求めてください。
+
+ただし、高橋君が「雨」を一度も記録しなかった場合、答えは $0$ であるとします。
+
+**制約**
+
+- $N$ は $1 \le N \le 100$ を満たす整数
+- $S$ は `S` と `R` からなる長さ $N$ の文字列
+
+**入力**
+
+入力は以下の形式で標準入力から与えられる。
+
+$N$<br />
+$S$<br />
+
+**出力**
+
+答えを出力せよ。
+
+</div>
+
+</details>
+
+### ABC479-C
+
+[問題ページ](https://atcoder.jp/contests/abc479/tasks/abc479_c)
+
+<details>
+
+<summary>問題文を表示</summary>
+
+<div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+
+**問題文**
+
+$N$ 個のおかずがあります。
+
+$i$ 個目のおかずのおいしさは $A_i$、体積は $B_i$ です。
+
+あなたは、選んだおかずの体積の総和が $W$ 以下となるようにいくつかのおかずを選び、弁当箱に詰めます。
+
+選んだおかずのおいしさの総和として考えられる最大値を求めてください。
+
+**制約**
+
+- $1 \leq N \leq 20$
+- $1 \leq W \leq 10^9$
+- $1 \leq A_i, B_i \leq 10^9$
+- 入力される値はすべて整数
+
+**入力**
+
+入力は以下の形式で標準入力から与えられる。
+
+$N$ $W$<br />
+$A_1$ $B_1$<br />
+$A_2$ $B_2$<br />
+$\vdots$<br />
+$A_N$ $B_N$<br />
+
+**出力**
+
+答えを出力せよ。
+
+</div>
+
+</details>
+
+### ABC479-D
+
+[問題ページ](https://atcoder.jp/contests/abc479/tasks/abc479_d)
+
+<details>
+
+<summary>問題文を表示</summary>
+
+<div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+
+**問題文**
+
+$N$ 個のマスが一直線上に並んでおり、左から順に $1, 2, \ldots, N$ の番号が付いています。
+
+あなたがマス $i$ にいるとき、以下のいずれかの移動をすることができます。
+
+- 
+$1 \leq j < i$ なる整数 $j$ を選び、マス $j$ に移動する。この移動にはコストが $L_i$ かかる。
+
+- 
+$i < j \leq N$ なる整数 $j$ を選び、マス $j$ に移動する。この移動にはコストが $R_i$ かかる。
+
+$Q$ 個のクエリが与えられます。それぞれについて答えてください。各クエリは以下の形式です。
+
+- 整数 $s, t$ が与えられる。あなたがマス $s$ から移動を繰り返してマス $t$ に辿り着くまでに必要なコストの合計の最小値を求めよ。
+
+**制約**
+
+- $2 \leq N \leq 3 \times 10^5$
+- $1 \leq Q \leq 3 \times 10^5$
+- $1 \leq L_i \leq 10^9$ $(2 \leq i \leq N)$
+- $1 \leq R_i \leq 10^9$ $(1 \leq i \leq N - 1)$
+- 各クエリについて $1 \leq s, t \leq N$
+- 各クエリについて $s \neq t$
+- 入力される値はすべて整数
+
+**入力**
+
+入力は以下の形式で標準入力から与えられる。
+
+$N$ $Q$<br />
+$L_2$ $L_3$ $\ldots$ $L_N$<br />
+$R_1$ $R_2$ $\ldots$ $R_{N - 1}$<br />
+$\text{query}_1$<br />
+$\text{query}_2$<br />
+$\vdots$<br />
+$\text{query}_Q$<br />
+
+ただし、$\text{query}_i$ は $i$ 番目のクエリであり、以下の形式で与えられる。
+
+$s$ $t$<br />
+
+**出力**
+
+$Q$ 行出力せよ。
+
+$i$ 行目には、$i$ 番目のクエリに対する答えを出力せよ。
+
+</div>
+
+</details>
+
+### ABC479-E
+
+[問題ページ](https://atcoder.jp/contests/abc479/tasks/abc479_e)
+
+<details>
+
+<summary>問題文を表示</summary>
+
+<div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+
+**問題文**
+
+頂点に $1,2,\dots,N$ の番号がついた $N$ 頂点の木があります。ここで、 $N$ は奇数です。
+
+辺にも $1,2,\dots,N-1$ の番号がついており、辺 $i$ は頂点 $A_i,B_i$ を結んでいます。
+
+各頂点 $i$ には変数 $x_i$ が設定されており、はじめは全ての頂点 $i$ について $x_i=0$ です。
+
+これから、 $i=1,2,\dots,N-1$ について順に以下の操作を行います。
+
+- まず、辺 $i$ を取り除く。その結果、木は $2$ つの連結成分に分かれる。
+- 含まれる頂点の数がより多い連結成分に含まれる全ての頂点 $v$ について、 $x_v$ に $i$ を加算する。
+
+  - なお、 $N$ は奇数なので、含まれる頂点の数がより多い連結成分は一意に定まる。
+
+- 最後に、辺 $i$ を復元する。
+
+全ての操作を行った後の、各頂点に設定された変数の値 $x_1,x_2,\dots,x_N$ を求めてください。
+
+**制約**
+
+- 入力は全て整数
+- $N$ は $3 \le N \le 2 \times 10^5 - 1$ を満たす奇数
+- $1 \le A_i < B_i \le N$
+- 与えられるグラフは木である
+
+**入力**
+
+入力は以下の形式で標準入力から与えられる。
+
+$N$<br />
+$A_1$ $B_1$<br />
+$A_2$ $B_2$<br />
+$\vdots$<br />
+$A_{N-1}$ $B_{N-1}$<br />
+
+**出力**
+
+最終的な各変数の値を、以下の形式で出力せよ。
+
+$x_1$ $x_2$ $\dots$ $x_N$<br />
+
+</div>
+
+</details>
+
+### ABC479-F
+
+[問題ページ](https://atcoder.jp/contests/abc479/tasks/abc479_f)
+
+<details>
+
+<summary>問題文を表示</summary>
+
+<div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+
+**問題文**
+
+$N$ 人の人が数直線上に立っています。人にはそれぞれ $1, 2, \ldots, N$ の番号が付けられており、はじめ人 $i$ は座標 $S_i$ にいます。ただし、$S_i$ はそれぞれ相異なります。
+
+あなたは、以下の操作を繰り返し行うことができます。
+
+- 人を $1$ 人選ぶ。その人が現在いる座標を $x$ としたとき、$x - 1$ または $x + 1$ に移動させる。ただし、移動先に人がいる場合は、移動先にいる人を同時に座標 $x$ に移動させる。
+
+各人 $i$ が座標 $T_i$ にいる状態になるまでの操作回数として考えられる最小値を求めてください。ただし、$T_i$ はそれぞれ相異なります。
+
+**制約**
+
+- $1 \leq N \leq 2 \times 10^5$
+- $0 \leq S_i, T_i \leq 10^9$
+- $i \neq j$ のとき $S_i \neq S_j$ かつ $T_i \neq T_j$
+- 入力される値はすべて整数
+
+**入力**
+
+入力は以下の形式で標準入力から与えられる。
+
+$N$<br />
+$S_1$ $S_2$ $\ldots$ $S_N$<br />
+$T_1$ $T_2$ $\ldots$ $T_N$<br />
+
+**出力**
+
+答えを出力せよ。
+
+</div>
+
+</details>
+
+### ABC479-G
+
+[問題ページ](https://atcoder.jp/contests/abc479/tasks/abc479_g)
+
+<details>
+
+<summary>問題文を表示</summary>
+
+<div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+
+**問題文**
+
+長さ $N$ の整数列 $A=(A_1,A_2,\dots,A_N), B=(B_1,B_2,\dots,B_N)$ が与えられます。
+
+長さ $N$ の **有理数** の列 $c=(c_1,c_2,\dots,c_N), d=(d_1,d_2,\dots,d_N)$ であって、以下の条件を満たすものを考えます。
+
+- 全ての $1 \le i,j \le N$ について、 $(A_i+c_i)(B_j+d_j)=(A_j+c_j)(B_i+d_i)$
+
+$\displaystyle \sum_{i=1}^{N} \left ( |c_i|+|d_i| \right )$ としてありうる最小値を求めてください。
+
+本問題の答えは、分母が正・分子が非負である既約分数 $p/q$ としてただ一通りに表現できることが証明できます。
+
+この $p,q$ を出力してください。
+
+**制約**
+
+- 入力は全て整数
+- $2 \le N \le 2 \times 10^5$
+- $|A_i|, |B_i| \le 10^6$
+
+**入力**
+
+入力は以下の形式で標準入力から与えられる。
+
+$N$<br />
+$A_1$ $A_2$ $\dots$ $A_N$<br />
+$B_1$ $B_2$ $\dots$ $B_N$<br />
+
+**出力**
+
+本問題の答えが、分母が正・分子が非負である既約分数 $p/q$ として表現されるとき、以下の形式で出力せよ。
+
+$p$ $q$<br />
+
+</div>
+
+</details>
+
+## 最後に
