@@ -12,8 +12,8 @@ git pull
 git switch -c write/abc472-log
 
 bun install
-bun run make abc472-log
-# 記事を編集する
+bun run make abc472-log --contest abc472
+# 自動生成された内容を確認し、記事を編集する
 
 bun run lint:articles -- src/content/activities/abc472-log/index.mdx
 bun run format
@@ -127,17 +127,31 @@ git switch -c write/abc472-log
 
 ### bun run make
 
-Issue #48に対応する記事生成scriptです。記事directoryと`index.mdx`を作成します。
+記事生成scriptです。指定した記事directoryに`index.mdx`と`images/`を作成します。`images/`は常に作成されます。
+
+空のテンプレートから記事を作成する場合は、directory名だけを指定します。
 
 ```sh
 bun run make abc472-log
 ```
 
-画像を置く記事では、`images/`も同時に作成できます。
+AtCoder参加記を自動生成する場合は、`--contest`でコンテストIDを指定します。
 
 ```sh
-bun run make abc472-log --images
+bun run make abc478-log --contest abc478
 ```
+
+`--contest`指定時は、登録済みのWCPCメンバーを対象にAtCoder / AtCoder Problemsから情報を取得し、次の内容を`index.mdx`へ自動で反映します。
+
+- コンテスト名とリンク
+- WCPCメンバーのうち、そのコンテストで提出した人数
+- 各問題のWCPC内最速解答者
+- ペナルティ込みのタイム
+- 最速AC提出で使用した言語
+- 日本語の問題文・制約・入力・出力
+- 数式をMarkdown / KaTeXで表示できる形へ整形した問題文
+
+タイムは、その問題をACした時点でAC済みの問題についてのみペナルティを加算して計算します。未AC問題の誤答は、その問題をACするまで総ペナルティには含めません。
 
 `bun run make --help`で使い方を確認できます。既存directoryは上書きせず、不正なdirectory指定は拒否します。
 
@@ -293,22 +307,22 @@ git branch -d write/abc472-log
 
 ## よく使うコマンド
 
-| やりたいこと           | コマンド                              |
-| ---------------------- | ------------------------------------- |
-| 依存関係をインストール | `bun install`                         |
-| 開発サーバー           | `bun run dev`                         |
-| build                  | `bun run build`                       |
-| format                 | `bun run format`                      |
-| 記事を作成             | `bun run make <name>`                 |
-| 画像付き記事を作成     | `bun run make <name> --images`        |
-| 記事をlint             | `bun run lint:articles -- <path>`     |
-| 記事をautofix          | `bun run lint:articles:fix -- <path>` |
-| 全記事をlint           | `bun run lint:articles:all`           |
-| 全記事をautofix        | `bun run lint:articles:fix:all`       |
-| branchを作成           | `git switch -c <name>`                |
-| 変更を確認             | `git status` / `git diff`             |
-| stage                  | `git add <file-or-directory>`         |
-| commit                 | `git commit -m "<message>"`           |
+| やりたいこと            | コマンド                              |
+| ----------------------- | ------------------------------------- |
+| 依存関係をインストール  | `bun install`                         |
+| 開発サーバー            | `bun run dev`                         |
+| build                   | `bun run build`                       |
+| format                  | `bun run format`                      |
+| 記事を作成              | `bun run make <name>`                 |
+| AtCoder参加記を自動生成 | `bun run make <name> --contest <id>`  |
+| 記事をlint              | `bun run lint:articles -- <path>`     |
+| 記事をautofix           | `bun run lint:articles:fix -- <path>` |
+| 全記事をlint            | `bun run lint:articles:all`           |
+| 全記事をautofix         | `bun run lint:articles:fix:all`       |
+| branchを作成            | `git switch -c <name>`                |
+| 変更を確認              | `git status` / `git diff`             |
+| stage                   | `git add <file-or-directory>`         |
+| commit                  | `git commit -m "<message>"`           |
 
 ## トラブルシューティング
 
