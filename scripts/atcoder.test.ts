@@ -96,9 +96,7 @@ describe("AtCoder penalty calculation", () => {
 
     expect(formatProblemResultTime(results.get("abc999_a")!)).toBe("3:00");
     expect(formatProblemResultTime(results.get("abc999_b")!)).toBe("8:00");
-    expect(formatProblemResultTime(results.get("abc999_b")!)).not.toContain(
-      "+",
-    );
+    expect(formatProblemResultTime(results.get("abc999_b")!)).not.toContain("+");
     expect(results.get("abc999_b")?.elapsedSeconds).toBe(8 * 60);
   });
 

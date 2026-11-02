@@ -57,12 +57,7 @@ const STATEMENT_INTERVAL_MS = 300;
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-function showProgress(
-  label: string,
-  current: number,
-  total: number,
-  detail?: string,
-): void {
+function showProgress(label: string, current: number, total: number, detail?: string): void {
   if (total <= 0) return;
 
   const width = 20;
@@ -85,8 +80,7 @@ async function fetchJson<T>(url: string): Promise<T> {
   const response = await fetch(url, {
     headers: { "User-Agent": "WCPC-Home-Page article-generator" },
   });
-  if (!response.ok)
-    throw new Error(`取得に失敗しました (${response.status}): ${url}`);
+  if (!response.ok) throw new Error(`取得に失敗しました (${response.status}): ${url}`);
   return (await response.json()) as T;
 }
 
@@ -94,8 +88,7 @@ async function fetchText(url: string): Promise<string> {
   const response = await fetch(url, {
     headers: { "User-Agent": "WCPC-Home-Page article-generator" },
   });
-  if (!response.ok)
-    throw new Error(`取得に失敗しました (${response.status}): ${url}`);
+  if (!response.ok) throw new Error(`取得に失敗しました (${response.status}): ${url}`);
   return await response.text();
 }
 
@@ -127,8 +120,7 @@ export function calculateUserProblemResults(
     .filter((submission) => problemIds.has(submission.problem_id))
     .filter(
       (submission) =>
-        submission.epoch_second >= contestStart &&
-        submission.epoch_second <= contestEnd,
+        submission.epoch_second >= contestStart && submission.epoch_second <= contestEnd,
     )
     .sort((a, b) => a.epoch_second - b.epoch_second || a.id - b.id);
 
@@ -151,8 +143,7 @@ export function calculateUserProblemResults(
         acceptedAt: submission.epoch_second,
         elapsedSeconds,
         penaltyCount: cumulativePenaltyCount,
-        scoreTimeSeconds:
-          elapsedSeconds + cumulativePenaltyCount * penaltySeconds,
+        scoreTimeSeconds: elapsedSeconds + cumulativePenaltyCount * penaltySeconds,
         language: submission.language,
       });
       continue;
@@ -231,10 +222,8 @@ function decodeHtml(value: string): string {
   };
 
   return value.replace(/&(#x?[0-9a-f]+|[a-z]+);/gi, (match, entity: string) => {
-    if (/^#x/i.test(entity))
-      return String.fromCodePoint(Number.parseInt(entity.slice(2), 16));
-    if (entity.startsWith("#"))
-      return String.fromCodePoint(Number.parseInt(entity.slice(1), 10));
+    if (/^#x/i.test(entity)) return String.fromCodePoint(Number.parseInt(entity.slice(2), 16));
+    if (entity.startsWith("#")) return String.fromCodePoint(Number.parseInt(entity.slice(1), 10));
     return named[entity.toLowerCase()] ?? match;
   });
 }
@@ -283,13 +272,9 @@ function htmlToMarkdown(html: string): string {
     .replace(/<details\b[^>]*>([\s\S]*?)<\/details>/gi, (_m, body: string) => {
       const summaryMatch = body.match(/<summary\b[^>]*>([\s\S]*?)<\/summary>/i);
       const summary = summaryMatch
-        ? htmlToMarkdown(summaryMatch[1])
-            .replace(/\s*\n\s*/g, " ")
-            .trim()
+        ? htmlToMarkdown(summaryMatch[1]).replace(/\s*\n\s*/g, " ").trim()
         : "詳細";
-      const detailsBody = summaryMatch
-        ? body.replace(summaryMatch[0], "")
-        : body;
+      const detailsBody = summaryMatch ? body.replace(summaryMatch[0], "") : body;
       const detailsContent = htmlToMarkdown(detailsBody);
       return hold(
         `\n\n<details>\n\n<summary>${summary}</summary>\n\n${detailsContent}\n\n</details>\n\n`,
@@ -325,10 +310,7 @@ function htmlToMarkdown(html: string): string {
     .replace(/<[^>]*>/g, "");
 
   text = decodeHtml(text)
-    .replace(
-      /\\\[([\s\S]*?)\\\]/g,
-      (_m, math: string) => `\n$$\n${math.trim()}\n$$\n`,
-    )
+    .replace(/\\\[([\s\S]*?)\\\]/g, (_m, math: string) => `\n$$\n${math.trim()}\n$$\n`)
     .replace(/\\\(([\s\S]*?)\\\)/g, (_m, math: string) => `$${math.trim()}$`)
     .replace(/[ \t]+\n/g, "\n")
     .replace(/\n[ \t]*\n(?=[ \t]*(?:- |1\. ))/g, "\n")
@@ -336,22 +318,15 @@ function htmlToMarkdown(html: string): string {
     .trim();
 
   return text
-    .replace(
-      /@@WCPC_(\d+)@@/g,
-      (_m, index: string) => placeholders[Number(index)] ?? "",
-    )
+    .replace(/@@WCPC_(\d+)@@/g, (_m, index: string) => placeholders[Number(index)] ?? "")
     .replace(/\n{3,}/g, "\n\n")
     .trim();
 }
 
 function extractJapaneseStatement(html: string): string {
-  const jaStart = html.search(
-    /<span\b[^>]*class=["'][^"']*lang-ja[^"']*["'][^>]*>/i,
-  );
+  const jaStart = html.search(/<span\b[^>]*class=["'][^"']*lang-ja[^"']*["'][^>]*>/i);
   const source = jaStart >= 0 ? html.slice(jaStart) : html;
-  const end = source.search(
-    /<span\b[^>]*class=["'][^"']*lang-en[^"']*["'][^>]*>/i,
-  );
+  const end = source.search(/<span\b[^>]*class=["'][^"']*lang-en[^"']*["'][^>]*>/i);
   return end >= 0 ? source.slice(0, end) : source;
 }
 
@@ -379,27 +354,17 @@ export function extractJapaneseProblemSections(html: string): string {
 }
 
 async function fetchContest(contestId: string): Promise<AtCoderContest> {
-  const contests = await fetchJson<AtCoderContest[]>(
-    `${RESOURCES}/contests.json`,
-  );
-  const contest = contests.find(
-    (item) => item.id.toLowerCase() === contestId.toLowerCase(),
-  );
+  const contests = await fetchJson<AtCoderContest[]>(`${RESOURCES}/contests.json`);
+  const contest = contests.find((item) => item.id.toLowerCase() === contestId.toLowerCase());
   if (!contest) throw new Error(`コンテストが見つかりません: ${contestId}`);
   return contest;
 }
 
-async function fetchContestProblems(
-  contestId: string,
-): Promise<ContestProblem[]> {
-  const pairs = await fetchJson<ContestProblem[]>(
-    `${RESOURCES}/contest-problem.json`,
-  );
+async function fetchContestProblems(contestId: string): Promise<ContestProblem[]> {
+  const pairs = await fetchJson<ContestProblem[]>(`${RESOURCES}/contest-problem.json`);
   return pairs
     .filter((pair) => pair.contest_id.toLowerCase() === contestId.toLowerCase())
-    .sort((a, b) =>
-      a.problem_index.localeCompare(b.problem_index, "en", { numeric: true }),
-    );
+    .sort((a, b) => a.problem_index.localeCompare(b.problem_index, "en", { numeric: true }));
 }
 
 async function fetchMemberSubmissions(
@@ -419,10 +384,7 @@ async function fetchAllMemberSubmissions(
 
   for (let i = 0; i < members.length; i += 1) {
     const member = members[i];
-    result.set(
-      member.atcoderId,
-      await fetchMemberSubmissions(member, contestStart),
-    );
+    result.set(member.atcoderId, await fetchMemberSubmissions(member, contestStart));
     showProgress(
       "提出",
       i + 1,
@@ -458,10 +420,7 @@ async function fetchStatements(contestId: string, problems: ContestProblem[]) {
   for (let i = 0; i < problems.length; i += 1) {
     const problem = problems[i];
     const url = `${ATCODER}/contests/${encodeURIComponent(contestId)}/tasks/${encodeURIComponent(problem.problem_id)}?lang=ja`;
-    statements.set(
-      problem.problem_id,
-      extractJapaneseProblemSections(await fetchText(url)),
-    );
+    statements.set(problem.problem_id, extractJapaneseProblemSections(await fetchText(url)));
     showProgress("問題文", i + 1, problems.length, problem.problem_index);
     if (i + 1 < problems.length) await sleep(STATEMENT_INTERVAL_MS);
   }
@@ -479,14 +438,10 @@ export async function fetchContestAutoData(
 
   console.log("[準備] 問題一覧を取得しています...");
   const problems = await fetchContestProblems(contest.id);
-  if (problems.length === 0)
-    throw new Error(`問題一覧が見つかりません: ${contest.id}`);
+  if (problems.length === 0) throw new Error(`問題一覧が見つかりません: ${contest.id}`);
 
   await sleep(API_INTERVAL_MS);
-  const submissionsByUser = await fetchAllMemberSubmissions(
-    members,
-    contest.start_epoch_second,
-  );
+  const submissionsByUser = await fetchAllMemberSubmissions(members, contest.start_epoch_second);
   const contestEnd = contest.start_epoch_second + contest.duration_second;
 
   console.log("[集計] 最速解答者とペナルティを計算しています...");

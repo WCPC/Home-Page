@@ -23,12 +23,7 @@ if (args.length === 1 && (args[0] === "--help" || args[0] === "-h")) {
 }
 
 const directory = args[0];
-if (
-  !directory ||
-  basename(directory) !== directory ||
-  directory === "." ||
-  directory.startsWith("-")
-) {
+if (!directory || basename(directory) !== directory || directory === "." || directory.startsWith("-")) {
   console.error(usage);
   process.exit(1);
 }
@@ -83,11 +78,7 @@ function loadMembers(): WcpcMember[] {
     throw new Error("scripts/wcpc-members.json に1人以上登録してください。");
   }
   return parsed.map((value) => {
-    if (
-      !value ||
-      typeof value !== "object" ||
-      typeof (value as WcpcMember).atcoderId !== "string"
-    ) {
+    if (!value || typeof value !== "object" || typeof (value as WcpcMember).atcoderId !== "string") {
       throw new Error("wcpc-members.json の形式が不正です。");
     }
     return value as WcpcMember;
@@ -130,9 +121,7 @@ function renderAutoArticle(data: ContestAutoData): string {
 
   const statements = data.problems
     .map((problem) => {
-      const statement =
-        data.statements.get(problem.problem_id) ??
-        "問題文の取得に失敗しました。";
+      const statement = data.statements.get(problem.problem_id) ?? "問題文の取得に失敗しました。";
       const problemUrl = `https://atcoder.jp/contests/${data.contest.id}/tasks/${problem.problem_id}`;
       return `### ${data.contest.id.toUpperCase()}-${problem.problem_index}
 
@@ -186,9 +175,7 @@ ${statements}
 }
 
 function renderBlankArticle(): string {
-  const sections = ["A", "B", "C", "D", "E", "F", "G"]
-    .map(blankProblemSection)
-    .join("\n\n");
+  const sections = ["A", "B", "C", "D", "E", "F", "G"].map(blankProblemSection).join("\n\n");
   return `---
 title: "記事タイトル"
 date: ${formatJstDate(new Date())}
@@ -231,9 +218,7 @@ ${sections}
 let template: string;
 if (contestId) {
   console.log(`${contestId} の提出・問題文を取得しています...`);
-  template = renderAutoArticle(
-    await fetchContestAutoData(contestId, loadMembers()),
-  );
+  template = renderAutoArticle(await fetchContestAutoData(contestId, loadMembers()));
 } else {
   template = renderBlankArticle();
 }
